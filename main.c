@@ -76,6 +76,51 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
   printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", grafica->modelo);
 }
 //----------------------------------------------------------------------
+void elegirProce(Map *componentes, Map *carritoCompras)
+{
+  //Comprobamos que no haya una tarjeta en el carrito
+  MapPair *pairCar = map_search(carritoCompras, "Procesador");
+  if (pairCar->value != NULL)
+  {
+    puts("\nYa tienes un procesador en tu carrito!\n");
+    puts("Volviendo al Menú Principal.");
+    return;
+  }
+
+  limpiarPantalla();
+  //Busca la lista de procesadores disponibles en 'componentes'
+  int opcionProce;
+  MapPair *pairProce = map_search(componentes, "Procesador");
+  if (pairProce == NULL || pairProce->value == NULL) {
+    puts("No hay procesadores disponibles");
+    return;
+  }
+
+  List *listaProcesadores = (List *)pairProce->value;
+  mostrarProce(listaProcesadores);
+  printf("Escoge un procesador: ");
+  scanf("%i", &opcionProce);
+
+  if (opcionProce == 5) {
+    puts("\nVolviendo al Menú Principal.");
+    return;
+  }
+
+
+  //Busca la gráfica elegida por el usuario y la agrega a su carrito
+  Procesador *procesador = (Procesador *)list_first(listaProcesadores);
+  for (int i = 1; i < opcionProce; i++)
+  {
+    procesador = (Procesador *)list_next(listaProcesadores); 
+    if (procesador == NULL) {
+      puts("Opción inválida");
+      return;
+    }
+  }
+
+  pairCar->value = (void *)procesador;
+  printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", procesador->modelo);
+}
 //----------------------------------------------------------------------
 void escogerComponente(Map *componentes, Map *carrito)
 {
@@ -99,7 +144,7 @@ void escogerComponente(Map *componentes, Map *carrito)
         elegirGrafica(componentes, carrito);
         return;
       case '2':
-        limpiarPantalla();
+        elegirProce(componentes, carrito);
         //elegirProcesador(componentes, carrito);
         return;
       case '3':

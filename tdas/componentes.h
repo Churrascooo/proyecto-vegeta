@@ -26,7 +26,7 @@ typedef struct {
   char marcaProce[10];
   char socket[20];
   int nvme;
-  int ddr;
+  char ddrCom[10];
 } TarjetaMadre;
 
 typedef struct {
@@ -53,3 +53,8 @@ typedef struct {
 void cargarComponentes(Map *componentes, Map *carritoCompras);
 
 void mostrarGraf(List *lista);
+
+void mostrarProce(List *lista);
+
+
+
