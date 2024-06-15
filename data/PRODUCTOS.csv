@@ -1,0 +1,25 @@
+
+Gráfica,GTX 1060,3,5,120,Media
+Gráfica,RTX 2060,6,6,160,Alta
+Gráfica,GTX 1660,6,6,125,Media
+Gráfica,GTX 1050,4,5,80,Baja 
+Procesador,i5-10600K,Intel,6,12,2666,Media
+Procesador,Ryzen 5 5600X,AMD,6,12,3200,Alta
+Procesador,Athlon 3000G,AMD,2,4,2600,Baja
+Procesador,Ryzen 3 3100,AMD,4,8,2666,Media
+Tarjeta Madre,ASUS P8H61-M LX3,Socket 1155,0,3
+Tarjeta Madre,ASUS ROG STRIX Z690-E GAMING WIFI,Socket 1700,3,5
+Tarjeta Madre,GIGABYTE X570 AORUS ELITE,Socket AM4,2,4
+Tarjeta Madre,ASRock B460M PRO4,Socket 1200,1,4
+RAM,G.Skill Ripjaws V,32,DDR4,3600
+RAM,Kingston HyperX Fury,8,DDR4,2666
+RAM,Kingston ValueRAM,8,DDR3,1600
+RAM,Corsair Dominator Platinum RGB,16,DDR5,5200
+Almacenamiento,Samsung 970 EVO Plus,3500,3300,1000,Nvme
+Almacenamiento,WD Blue 3D NAND,560,530,500,Sata
+Almacenamiento,Crucial P1,2000,1750,1000,Nvme
+Almacenamiento,Seagate Barracuda,210,210,2000,Sata
+Fuente de Poder,Corsair RM750x,750,80 Plus Gold
+Fuente de Poder,EVGA 600 W1,600,80 Plus White
+Fuente de Poder,Seasonic Focus GX-850,850,80 Plus Gold
+Fuente de Poder,Thermaltake Smart 500W,500,80 Plus Bronze
