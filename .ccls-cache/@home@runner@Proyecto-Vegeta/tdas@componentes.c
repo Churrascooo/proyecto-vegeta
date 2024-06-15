@@ -45,6 +45,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
       }
     }
 
+    //Agregamos Procesadores al mapa de componentes
+
     //COPIAR FORMULA PARA LOS DEMÁS COMPONENTES
     //
     //
