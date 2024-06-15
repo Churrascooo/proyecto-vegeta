@@ -52,7 +52,6 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
     //
     //
   }
-  printf("Componentes cargados con éxito!\n");
   fclose(archivo);
 
   map_insert(carritoCompras, "Gráfica", NULL);
@@ -82,6 +81,8 @@ void mostrarGraf(List *lista)
     grafica = (Grafica *)list_next(lista);
     contador++;
   }
+  printf("%i.- Cancelar Operación\n", contador);
+  printf("--------------------------------------------\n\n");
 }
 
 

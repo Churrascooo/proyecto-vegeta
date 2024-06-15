@@ -9,19 +9,18 @@
 #include <string.h>
 
 //---------------- Función para el menú principal -----------------------
+//-----------------------------------------------------------------------
 void mostrarMenuPrincipal()
 {
   puts("----------------------------------------------");
   puts("===  Bienvenido a Vegeta Makes Everything  ===");
-  puts("----------------------------------------------");
-  puts("\n");
+  puts("----------------------------------------------\n");
 
   puts("1) Búsqueda de productos");
   puts("2) Carrito de compras");
   puts("3) Eliminar del carrito de compras");
   puts("4) Comprobar compatibilidad");
-  puts("5) Salir del programa");
-  puts("\n");
+  puts("5) Salir del programa\n");
 }
 
 //----------------------------------------------------------------------
@@ -37,10 +36,12 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
   MapPair *pairCar = map_search(carritoCompras, "Gráfica");
   if (pairCar->value != NULL)
   {
-    puts("Ya tienes una tarjeta grafica en tu carrito!");
+    puts("\nYa tienes una tarjeta grafica en tu carrito!\n");
+    puts("Volviendo al Menú Principal.");
     return;
   }
 
+  limpiarPantalla();
   //Busca la lista de gráficas disponibles en 'componentes'
   int opcionGraf;
   MapPair *pairGraf = map_search(componentes, "Gráfica");
@@ -54,6 +55,12 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
   printf("Escoge una gráfica: ");
   scanf("%i", &opcionGraf);
 
+  if (opcionGraf == 5) {
+    puts("\nVolviendo al Menú Principal.");
+    return;
+  }
+
+  
   //Busca la gráfica elegida por el usuario y la agrega a su carrito
   Grafica *grafica = (Grafica *)list_first(listaGraficas);
   for (int i = 1; i < opcionGraf; i++)
@@ -73,9 +80,14 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
 void escogerComponente(Map *componentes, Map *carrito)
 {
   char opcionComponente;
-  puts("Escoge el componente que deseas agregar al carrito:");
+  puts("Escoge el componente que deseas agregar al carrito:\n");
   puts("1. Gráfica");
-  puts("2. Salir");
+  puts("2. Procesador");
+  puts("3. Tarjeta Madre");
+  puts("4. Memoria RAM");
+  puts("5. Almacenamiento");
+  puts("6. Fuente de Poder");
+  puts("7. Cancelar Operación\n");
   do
   {
     printf("Ingrese su opción: ");
@@ -84,16 +96,34 @@ void escogerComponente(Map *componentes, Map *carrito)
     switch(opcionComponente)
     {
       case '1':
-        limpiarPantalla();
         elegirGrafica(componentes, carrito);
         return;
       case '2':
-        puts("Saliendo al Menú Principal");
+        limpiarPantalla();
+        //elegirProcesador(componentes, carrito);
         return;
-      //AGREGAR EL RESTO DE COMPONENTES COMO OPCIONES
+      case '3':
+        limpiarPantalla();
+        //elegirTarjetaMadre(componentes, carrito);
+        return;
+      case '4':
+        limpiarPantalla();
+        //elegirMemoriaRAM(componentes, carrito);
+        return;
+      case '5':
+        limpiarPantalla();  
+        //elegirAlmacenamiento(componentes, carrito);
+        return;
+      case '6':
+        limpiarPantalla();
+        //elegirFuentePoder(componentes, carrito);
+        return;  
+      case '7':
+        puts("\nVolviendo al Menú Principal.");
+        return;
     } 
     limpiarPantalla();
-  } while (opcionComponente != '2');
+  } while (opcionComponente != '7');
 
 }
 //----------------------------------------------------------------------
@@ -119,19 +149,22 @@ int main(void)
         break;
       case '2':
         //carritoDeCompras();
+        puts("\nAún no disponible.");
         break;
       case '3':
         //eliminarProducto();
+        puts("\nAún no disponible.");
         break;
       case '4':
         //comprobacionCompatibilidad();
+        puts("\nAún no disponible.");
         break;
       case '5':
-        puts("Saliendo del programa...");
+        puts("\nSaliendo del programa...");
         puts("Gracias por usar Vegeta Makes Everything :]");
         break;
       default:
-        puts("Opcióno inválida, por favor ingrese una correcta.");
+        puts("Opción inválida, por favor ingrese una correcta.");
         break;
     }
     presioneTeclaParaContinuar();
