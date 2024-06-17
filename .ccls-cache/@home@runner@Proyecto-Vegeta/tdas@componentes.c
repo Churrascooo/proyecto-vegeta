@@ -103,8 +103,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   {
     TarjetaMadre *tarjetaMadre = malloc(sizeof(TarjetaMadre));
     strcpy(tarjetaMadre->modelo, campos[0]);
-    strcpy(tarjetaMadre->marcaProce, campos[1]);
-    strcpy(tarjetaMadre->socket, campos[2]);
+    strcpy(tarjetaMadre->socket, campos[1]);
+    strcpy(tarjetaMadre->marcaProce, campos[2]);
     tarjetaMadre->nvme = atoi(campos[3]);
     strcpy(tarjetaMadre->ddrCom, campos[4]);
     
@@ -118,8 +118,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
     }
     else
     {
-      List *listaTarjetasMadres = (List *)pair->value;
-      list_pushBack(listaTarjetasMadres, tarjetaMadre);
+      List *lista = (List *)pair->value;
+      list_pushBack(lista, tarjetaMadre);
     }
   }
   fclose(archivo);
@@ -241,7 +241,7 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   map_insert(carritoCompras, "Procesador", NULL);
   map_insert(carritoCompras, "RAM", NULL);
   map_insert(carritoCompras, "Almacenamiento", NULL);
-  map_insert(carritoCompras, "MotherBoard", NULL);
+  map_insert(carritoCompras, "Tarjeta Madre", NULL);
   map_insert(carritoCompras, "Fuente", NULL);
 }
 //------------------------------------------------------------------------------
@@ -286,6 +286,29 @@ void mostrarProce(List *lista)
     printf("Gama: %s\n", procesador->gama);
     printf("--------------------------------------------\n");
     procesador = (Procesador *)list_next(lista);
+    contador++;
+  }
+  printf("%i.- Cancelar Operación\n", contador);
+  printf("--------------------------------------------\n\n");
+}
+//------------------------------------------------------------------------------
+void mostrarTarjetaMadre(List *lista)
+{
+  TarjetaMadre *tarjetaMadre = (TarjetaMadre *)list_first(lista);
+  int contador = 1;
+  puts("");
+  puts("Lista de Tarjetas Madres \n");
+  printf("--------------------------------------------\n");
+  while (tarjetaMadre != NULL)
+  {
+    printf("%i.-\n", contador);
+    printf("Modelo: %s\n", tarjetaMadre->modelo);
+    printf("Compatible con: %s\n", tarjetaMadre->marcaProce);
+    printf("%s\n", tarjetaMadre->socket);
+    printf("Puertos NVMe: %i\n", tarjetaMadre->nvme);
+    printf("Memoria: %s\n", tarjetaMadre->ddrCom);
+    printf("--------------------------------------------\n");
+    tarjetaMadre = (TarjetaMadre *)list_next(lista);
     contador++;
   }
   printf("%i.- Cancelar Operación\n", contador);

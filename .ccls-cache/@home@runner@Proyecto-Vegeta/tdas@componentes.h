@@ -56,5 +56,7 @@ void mostrarGraf(List *lista);
 
 void mostrarProce(List *lista);
 
+void mostrarTarjetaMadre(List *lista);
+
 
 
