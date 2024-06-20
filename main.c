@@ -174,6 +174,56 @@ void elegirTarjetaMadre(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
+{
+  //Comprobamos que no haya una memoria Ram en el carrito
+
+  MapPair *pairCar = map_search(carritoCompras, "RAM");
+  if (pairCar->value != NULL)
+  {
+    puts("\nYa tienes una memoria Ram en tu carrito!\n");
+    puts("Volviendo al Menú Principal.");
+    return;
+  }
+
+
+  limpiarPantalla();
+
+  int opcionRam;
+  MapPair *pairRam = map_search(componentes, "RAM");
+  if (pairRam == NULL || pairRam->value == NULL) {
+    puts("No hay memorias Ram disponibles");
+    return;
+  }
+
+  List *listaMemoriasRam = (List *)pairRam->value;
+  mostrarRam(listaMemoriasRam);
+  printf("Escoge una memoria Ram: ");
+  scanf("%i", &opcionRam);
+
+  if (opcionRam == 5) {
+    puts("\nVolviendo al Menú Principal.");
+    return;
+  }
+
+  //Busca la memoria Ram elegida por el usuario y la agrega a su carrito
+  MemoriaRAM *memoriaRam = (MemoriaRAM  *)list_first(listaMemoriasRam);
+  for (int i = 1; i < opcionRam; i++)
+  {
+    memoriaRam = (MemoriaRAM *)list_next(listaMemoriasRam); 
+    if (memoriaRam == NULL) {
+      puts("Opción inválida");
+      return;
+    }
+  }
+
+
+  pairCar->value = (void *)memoriaRam;
+  printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", memoriaRam->modelo);
+
+}
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
 
 void escogerComponente(Map *componentes, Map *carrito)
 {
@@ -203,8 +253,7 @@ void escogerComponente(Map *componentes, Map *carrito)
         elegirTarjetaMadre(componentes, carrito);
         return;
       case '4':
-        limpiarPantalla();
-        //elegirMemoriaRAM(componentes, carrito);
+        elegirMemoriaRAM(componentes, carrito);
         return;
       case '5':
         limpiarPantalla();  
@@ -274,6 +323,18 @@ void mostrarCarro(Map *carritoCompras)
     contador++;
   }
 
+  pairCar = map_search(carritoCompras, "RAM");
+  if (pairCar->value != NULL)
+  {
+    MemoriaRAM *memoriaRam = (MemoriaRAM *)pairCar->value;
+    puts("MEMORIA RAM:");
+    printf("Modelo: %s\n", memoriaRam->modelo);
+    printf("Cantidad de memoria: %i gb\n", memoriaRam->memoria);
+    printf("Tipo de memoria: %s\n", memoriaRam->ddr);
+    printf("Frecuencia: %i mhz\n", memoriaRam->frecuencia); 
+    printf("--------------------------------------------\n");
+    contador++;
+  }
 
   if (contador == 0)
   {

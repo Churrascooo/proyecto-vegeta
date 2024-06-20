@@ -32,7 +32,7 @@ typedef struct {
 typedef struct {
   char modelo[50];
   int memoria;
-  int ddr;
+  char ddr[10];
   int frecuencia; //En MHz
 } MemoriaRAM;
 
@@ -58,5 +58,5 @@ void mostrarProce(List *lista);
 
 void mostrarTarjetaMadre(List *lista);
 
-
+void mostrarRam(List *lista);
 

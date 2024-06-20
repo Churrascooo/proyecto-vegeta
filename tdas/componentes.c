@@ -143,7 +143,7 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
     MemoriaRAM *memoriaRam = malloc(sizeof(MemoriaRAM));
     strcpy(memoriaRam->modelo, campos[0]);
     memoriaRam->memoria = atoi(campos[1]);
-    memoriaRam->ddr = atoi(campos[2]);
+    strcpy(memoriaRam->ddr, campos[2]);
     memoriaRam->frecuencia = atoi(campos[3]);
 
     MapPair *pair = map_search(componentes, "RAM");
@@ -305,7 +305,7 @@ void mostrarTarjetaMadre(List *lista)
     printf("Modelo: %s\n", tarjetaMadre->modelo);
     printf("Compatible con: %s\n", tarjetaMadre->marcaProce);
     printf("%s\n", tarjetaMadre->socket);
-    printf("Puertos NVMe: %i\n", tarjetaMadre->nvme);
+    printf("Puertos NVMe: %i\n", tarjetaMadre->nvme);  
     printf("Memoria: %s\n", tarjetaMadre->ddrCom);
     printf("--------------------------------------------\n");
     tarjetaMadre = (TarjetaMadre *)list_next(lista);
@@ -315,13 +315,27 @@ void mostrarTarjetaMadre(List *lista)
   printf("--------------------------------------------\n\n");
 }
 //------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
+void mostrarRam(List *lista)
+{
+  MemoriaRAM *memoriaRam = (MemoriaRAM *)list_first(lista);
+  int contador = 1;
+  puts("");
+  puts("Lista de memorias Ram \n");
+  printf("--------------------------------------------\n");
+  while (memoriaRam != NULL)
+  {
+    printf("%i.-\n", contador);
+    printf("Modelo: %s\n", memoriaRam->modelo);
+    printf("Cantidad de memoria: %i gb\n", memoriaRam->memoria);
+    printf("Tipo de memoria: %s\n", memoriaRam->ddr);
+    printf("Frecuencia: %i mhz\n", memoriaRam->frecuencia);  
+    printf("--------------------------------------------\n");
+    memoriaRam = (MemoriaRAM *)list_next(lista);
+    contador++;
+  }
+  printf("%i.- Cancelar Operación\n", contador);
+  printf("--------------------------------------------\n\n");
+}
+//------------------------------------------------------------------------------
 
 
