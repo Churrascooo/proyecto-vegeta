@@ -186,7 +186,6 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
     return;
   }
 
-
   limpiarPantalla();
 
   int opcionRam;
@@ -216,7 +215,6 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
       return;
     }
   }
-
 
   pairCar->value = (void *)memoriaRam;
   printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", memoriaRam->modelo);
@@ -371,7 +369,6 @@ void escogerComponente(Map *componentes, Map *carrito)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-
 void mostrarCarro(Map *carritoCompras)
 {
   puts("TU CARRITO DE COMPRAS:");
@@ -468,8 +465,128 @@ void mostrarCarro(Map *carritoCompras)
   }
   
 }
-
 //----------------------------------------------------------------------
+//----------------------------------------------------------------------
+void eliminarProducto(Map *carritoCompras)
+{
+  int opcionBorrar;
+  do
+  {
+    puts("Escoge el componente que deseas eliminar del carrito:");
+    puts("1. Gráfica");
+    puts("2. Procesador");
+    puts("3. Tarjeta Madre");
+    puts("4. Memoria Ram");
+    puts("5. Almacenamiento");
+    puts("6. Fuente de Poder");
+    puts("7. Salir");
+    scanf("%d", &opcionBorrar);
+
+
+    MapPair *pairCar;
+    switch(opcionBorrar)
+    {
+      case 1:
+        limpiarPantalla();
+        pairCar = map_search(carritoCompras, "Gráfica");
+        if (pairCar->value == NULL)
+        {
+          puts("No hay Tarjeta Gráfica en el carrito.");
+        }
+        else
+        {
+          pairCar->value = NULL;
+          puts("La Tarjeta Gráfica ha sido eliminada correctamente del carrito.");
+          return;
+        }
+        break;
+      
+      case 2:
+        limpiarPantalla();
+        pairCar = map_search(carritoCompras, "Procesador");
+        if (pairCar == NULL || pairCar->value == NULL)
+        {
+          puts("No hay Procesador en el carrito.");
+        }
+        else
+        {
+          pairCar->value = NULL;
+          puts("El Procesador ha sido eliminado correctamente del carrito.");
+          return;
+        }
+        break;
+      
+      
+      case 3:
+        pairCar = map_search(carritoCompras, "Tarjeta Madre");
+        if (pairCar == NULL || pairCar->value == NULL)
+        {
+          puts("No hay Tarjeta Madre en el carrito.\n");
+        }
+        else
+        {
+          pairCar->value = NULL;;
+          puts("La Tarjeta Madre ha sido eliminada del carrito.");
+          return;
+        }
+        break;
+      
+      case 4:
+        pairCar = map_search(carritoCompras, "RAM");
+        if (pairCar == NULL || pairCar->value == NULL)
+        {
+          puts("No hay RAM en el carrito.");
+        }
+        else
+        {
+          pairCar->value = NULL;
+          puts("La RAM ha sido eliminada del carrito.");
+          return;
+        }
+        break;
+      
+      case 5:
+        pairCar = map_search(carritoCompras, "Almacenamiento");
+        if (pairCar == NULL || pairCar->value == NULL)
+        {
+          puts("No hay Almacenamiento en el carrito.");
+        }
+        else
+        {
+          pairCar->value = NULL;
+          puts("El Almacenamiento ha sido eliminada del carrito.");
+          return;
+        }
+        break;
+      
+      case 6:
+        pairCar = map_search(carritoCompras, "Fuente de Poder");
+        if (pairCar == NULL || pairCar->value == NULL)
+        {
+          puts("No hay Fuente de Poder en el carrito.");
+        }
+        else
+        {
+          pairCar->value = NULL;
+          puts("La Fuente de Poder ha sido eliminada del carrito.");
+          return;
+        }
+        break;
+      
+      case 7:
+        puts("Volviendo al menú principal...");
+        break;
+      
+      default:
+        puts("Opción inválida");
+        break;
+    }
+  presioneTeclaParaContinuar();
+  limpiarPantalla();
+  } while (opcionBorrar != 7);
+
+  return;
+}
 //----------------------------------------------------------------------
 int main(void)
 {
@@ -495,8 +612,8 @@ int main(void)
         mostrarCarro(carritoCompras);
         break;
       case '3':
-        //eliminarProducto();
-        puts("\nAún no disponible.");
+        limpiarPantalla();
+        eliminarProducto(carritoCompras);
         break;
       case '4':
         //comprobacionCompatibilidad();
