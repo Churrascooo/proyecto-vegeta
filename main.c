@@ -181,7 +181,7 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
   MapPair *pairCar = map_search(carritoCompras, "RAM");
   if (pairCar->value != NULL)
   {
-    puts("\nYa tienes una memoria Ram en tu carrito!\n");
+    puts("\nYa tienes una memoria ram en tu carrito!\n");
     puts("Volviendo al Menú Principal.");
     return;
   }
@@ -192,13 +192,13 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
   int opcionRam;
   MapPair *pairRam = map_search(componentes, "RAM");
   if (pairRam == NULL || pairRam->value == NULL) {
-    puts("No hay memorias Ram disponibles");
+    puts("No hay memorias ram disponibles");
     return;
   }
 
   List *listaMemoriasRam = (List *)pairRam->value;
   mostrarRam(listaMemoriasRam);
-  printf("Escoge una memoria Ram: ");
+  printf("Escoge una memoria ram: ");
   scanf("%i", &opcionRam);
 
   if (opcionRam == 5) {
@@ -220,6 +220,106 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
 
   pairCar->value = (void *)memoriaRam;
   printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", memoriaRam->modelo);
+
+}
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+void elegirAlmacenamiento(Map *componentes, Map *carritoCompras)
+{
+  //Comprobamos que no haya una unidad de almacenamiento en el carrito
+
+  MapPair *pairCar = map_search(carritoCompras, "Almacenamiento");
+  if (pairCar->value != NULL)
+  {
+    puts("\nYa tienes una unidad de almacenamiento en tu carrito!\n");
+    puts("Volviendo al Menú Principal.");
+    return;
+  }
+
+
+  limpiarPantalla();
+
+  int opcionAlmacenamiento;
+  MapPair *pairAlmacenamiento = map_search(componentes, "Almacenamiento");
+  if (pairAlmacenamiento == NULL || pairAlmacenamiento->value == NULL) {
+    puts("No hay unidades de almacenamiento disponibles");
+    return;
+  }
+
+  List *listaUnidadesAlmacenamiento = (List *)pairAlmacenamiento->value;
+  mostrarAlmacenamiento(listaUnidadesAlmacenamiento);
+  printf("Escoge una unidad de almacenamiento: ");
+  scanf("%i", &opcionAlmacenamiento);
+
+  if (opcionAlmacenamiento == 5) {
+    puts("\nVolviendo al Menú Principal.");
+    return;
+  }
+
+  //Busca la unidad de almacenamiento elegida por el usuario y la agrega a su carrito
+  Almacenamiento *unidadAlmacenamiento = (Almacenamiento  *)list_first(listaUnidadesAlmacenamiento);
+  for (int i = 1; i < opcionAlmacenamiento; i++)
+  {
+    unidadAlmacenamiento = (Almacenamiento *)list_next(listaUnidadesAlmacenamiento); 
+    if (unidadAlmacenamiento == NULL) {
+      puts("Opción inválida");
+      return;
+    }
+  }
+
+
+  pairCar->value = (void *)unidadAlmacenamiento;
+  printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", unidadAlmacenamiento->modelo);
+
+}
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+void elegirFuentePoder(Map *componentes, Map *carritoCompras)
+{
+  //Comprobamos que no haya una fuente de poder en el carrito
+
+  MapPair *pairCar = map_search(carritoCompras, "Fuente de Poder");
+  if (pairCar->value != NULL)
+  {
+    puts("\nYa tienes una fuente de poder en tu carrito!\n");
+    puts("Volviendo al Menú Principal.");
+    return;
+  }
+
+
+  limpiarPantalla();
+
+  int opcionFuentePoder;
+  MapPair *pairFuentePoder = map_search(componentes, "Fuente de Poder");
+  if (pairFuentePoder == NULL || pairFuentePoder->value == NULL) {
+    puts("No hay fuentes de poder disponibles");
+    return;
+  }
+
+  List *listaFuentesPoder = (List *)pairFuentePoder->value;
+  mostrarFuentePoder(listaFuentesPoder);
+  printf("Escoge una fuente de poder: ");
+  scanf("%i", &opcionFuentePoder);
+
+  if (opcionFuentePoder == 5) {
+    puts("\nVolviendo al Menú Principal.");
+    return;
+  }
+
+  //Busca la fuente de poder elegida por el usuario y la agrega a su carrito
+  FuentePoder *fuentePoder = (FuentePoder  *)list_first(listaFuentesPoder);
+  for (int i = 1; i < opcionFuentePoder; i++)
+  {
+    fuentePoder = (FuentePoder *)list_next(listaFuentesPoder); 
+    if (fuentePoder == NULL) {
+      puts("Opción inválida");
+      return;
+    }
+  }
+
+
+  pairCar->value = (void *)fuentePoder;
+  printf("\n%s ha sido agregada correctamente a tu carrito!\n\n", fuentePoder->modelo);
 
 }
 //----------------------------------------------------------------------
@@ -255,13 +355,11 @@ void escogerComponente(Map *componentes, Map *carrito)
       case '4':
         elegirMemoriaRAM(componentes, carrito);
         return;
-      case '5':
-        limpiarPantalla();  
-        //elegirAlmacenamiento(componentes, carrito);
+      case '5':  
+        elegirAlmacenamiento(componentes, carrito);
         return;
       case '6':
-        limpiarPantalla();
-        //elegirFuentePoder(componentes, carrito);
+        elegirFuentePoder(componentes, carrito);
         return;  
       case '7':
         puts("\nVolviendo al Menú Principal.");
@@ -336,6 +434,32 @@ void mostrarCarro(Map *carritoCompras)
     contador++;
   }
 
+  pairCar = map_search(carritoCompras, "Almacenamiento");
+  if (pairCar->value != NULL)
+  {
+    Almacenamiento *unidadAlmacenamiento = (Almacenamiento *)pairCar->value;
+    puts("UNIDAD DE ALMACENAMIENTO:");
+    printf("Modelo: %s\n", unidadAlmacenamiento->modelo);
+    printf("Velocidad de lectura: %i mb/s\n", unidadAlmacenamiento->lectura);
+    printf("Velocidad de escritura: %i mb/s\n", unidadAlmacenamiento->escritura);
+    printf("Espacio de almacenamiento: %i gb\n", unidadAlmacenamiento->espacio);  
+    printf("Tipo de SSD M2: %s\n", unidadAlmacenamiento->tipo); 
+    printf("--------------------------------------------\n");
+    contador++;
+  }
+
+  pairCar = map_search(carritoCompras, "Fuente de Poder");
+  if (pairCar->value != NULL)
+  {
+    FuentePoder *fuentePoder = (FuentePoder *)pairCar->value;
+    puts("FUENTE DE PODER:");
+    printf("Modelo: %s\n", fuentePoder->modelo);
+    printf("Consumo de energía: %i watts\n", fuentePoder->energia);
+    printf("Certificación: %s\n", fuentePoder->calidad);
+    printf("--------------------------------------------\n");
+    contador++;
+  }
+  
   if (contador == 0)
   {
     puts("No hay nada en tu carrito!");

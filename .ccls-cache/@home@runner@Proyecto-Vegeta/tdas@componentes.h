@@ -47,7 +47,7 @@ typedef struct {
 typedef struct {
   char modelo[50];
   int energia; //En Watts
-  char calidad; //80 PLUS
+  char calidad[50]; //80 PLUS
 } FuentePoder;
 
 void cargarComponentes(Map *componentes, Map *carritoCompras);
@@ -60,3 +60,6 @@ void mostrarTarjetaMadre(List *lista);
 
 void mostrarRam(List *lista);
 
+void mostrarAlmacenamiento(List *lista);
+
+void mostrarFuentePoder(List *lista);

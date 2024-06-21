@@ -179,9 +179,10 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   {
     Almacenamiento *almacenamiento = malloc(sizeof(Almacenamiento));
     strcpy(almacenamiento->modelo, campos[0]);
-    almacenamiento->escritura = atoi(campos[1]);
-    almacenamiento->espacio = atoi(campos[2]);
-    strcpy(almacenamiento->tipo, campos[3]);
+    almacenamiento->lectura = atoi(campos[1]);
+    almacenamiento->escritura = atoi(campos[2]);
+    almacenamiento->espacio = atoi(campos[3]);
+    strcpy(almacenamiento->tipo, campos[4]);
 
     MapPair *pair = map_search(componentes, "Almacenamiento");
     if (pair == NULL || pair->value == NULL || pair->key == NULL)
@@ -217,7 +218,7 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
     FuentePoder *fuentePoder = malloc(sizeof(FuentePoder));
     strcpy(fuentePoder->modelo, campos[0]);
     fuentePoder->energia = atoi(campos[1]);
-    fuentePoder->calidad = atoi(campos[2]);
+    strcpy(fuentePoder->calidad, campos[2]);
 
     MapPair *pair = map_search(componentes, "Fuente de Poder");
     if (pair == NULL || pair->value == NULL || pair->key == NULL)
@@ -242,7 +243,7 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   map_insert(carritoCompras, "RAM", NULL);
   map_insert(carritoCompras, "Almacenamiento", NULL);
   map_insert(carritoCompras, "Tarjeta Madre", NULL);
-  map_insert(carritoCompras, "Fuente", NULL);
+  map_insert(carritoCompras, "Fuente de Poder", NULL);
 }
 //------------------------------------------------------------------------------
 void mostrarGraf(List *lista)
@@ -337,5 +338,47 @@ void mostrarRam(List *lista)
   printf("--------------------------------------------\n\n");
 }
 //------------------------------------------------------------------------------
-
-
+void mostrarAlmacenamiento(List *lista)
+{
+  Almacenamiento *unidadAlmacenamiento = (Almacenamiento *)list_first(lista);
+  int contador = 1;
+  puts("");
+  puts("Lista de unidades de almacenamiento \n");
+  printf("--------------------------------------------\n");
+  while (unidadAlmacenamiento != NULL)
+  {
+    printf("%i.-\n", contador);
+    printf("Modelo: %s\n", unidadAlmacenamiento->modelo);
+    printf("Velocidad de lectura: %i mb/s\n", unidadAlmacenamiento->lectura);
+    printf("Velocidad de escritura: %i mb/s\n", unidadAlmacenamiento->escritura);
+    printf("Espacio de almacenamiento: %i gb\n", unidadAlmacenamiento->espacio);  
+    printf("Tipo de SSD M2: %s\n", unidadAlmacenamiento->tipo);
+    printf("--------------------------------------------\n");
+    unidadAlmacenamiento = (Almacenamiento *)list_next(lista);
+    contador++;
+  }
+  printf("%i.- Cancelar Operación\n", contador);
+  printf("--------------------------------------------\n\n");
+}
+//------------------------------------------------------------------------------
+void mostrarFuentePoder(List *lista)
+{
+  FuentePoder *fuentePoder = (FuentePoder *)list_first(lista);
+  int contador = 1;
+  puts("");
+  puts("Lista de fuentes de poder \n");
+  printf("--------------------------------------------\n");
+  while (fuentePoder != NULL)
+  {
+    printf("%i.-\n", contador);
+    printf("Modelo: %s\n", fuentePoder->modelo);
+    printf("Consumo de energía: %i watts\n", fuentePoder->energia);
+    printf("Certificación: %s\n", fuentePoder->calidad);
+    printf("--------------------------------------------\n");
+    fuentePoder = (FuentePoder *)list_next(lista);
+    contador++;
+  }
+  printf("%i.- Cancelar Operación\n", contador);
+  printf("--------------------------------------------\n\n");
+}
+//------------------------------------------------------------------------------
