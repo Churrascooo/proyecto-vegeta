@@ -578,7 +578,6 @@ void eliminarProducto(Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-
 void comprobarCompatibilidad(Map *carritoCompras)
 {
   limpiarPantalla();
@@ -670,20 +669,29 @@ void comprobarCompatibilidad(Map *carritoCompras)
         }
       }
 
-      pairAux = map_search(carritoCompras, "Almacenamiento");
-      if(pairAux->value != NULL)
-      {
-        //Haremos las comparaciones necesarias con el almacenamiento
-        Almacenamiento *storage = (Almacenamiento *) pairAux->value;
-        if(strcmp(storage->tipo, "NVMe") == 0 &&  tarjetaMadre->nvme == 0)
-        {
-          puts("La Tarjeta Madre no tiene puertos NVMe para la unidad de almacenamiento.");
-          puts("Recomendamos usar un almacenamiento de tipo SATA");
-          contadorError++;
-        }
-      }
       if (contadorError == 0){
         puts("La Tarjeta Madre no tiene incompatibilidades.");
+      }
+      puts("--------------------------------------------");
+    }
+
+    //Comparación Almacenamiento
+    pairCar = map_search(carritoCompras, "Almacenamiento");
+    if(pairCar->value != NULL){
+      int contadorError = 0; //Contador de incompatibilidades
+      puts("Almacenamiento:");
+      Almacenamiento *almacenamiento = (Almacenamiento *)pairCar->value;
+      //Haremos las comparaciones necesarias con el almacenamiento
+      pairAux = map_search(carritoCompras, "Tarjeta Madre");
+      TarjetaMadre *tarjetaMadre = (TarjetaMadre *)pairAux->value;
+      if(strcmp(almacenamiento->tipo, "NVMe") == 0 &&  tarjetaMadre->nvme == 0)
+      {
+        puts("La Tarjeta Madre no tiene puertos NVMe para la unidad de almacenamiento.");
+        puts("Recomendamos usar un almacenamiento de tipo SATA");
+        contadorError++;
+      }
+      if(contadorError==0){
+        puts("La unidad de Almacenamiento no tiene incompatibilidades.");
       }
       puts("--------------------------------------------");
     }
