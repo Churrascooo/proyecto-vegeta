@@ -2,7 +2,9 @@
 #include "map.h"
 #include "list.h"
 #include "componentes.h"
+#include <stdbool.h>
 
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 void cargarComponentes(Map *componentes, Map *carritoCompras)
 {
@@ -10,7 +12,6 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   char **campos; //Para recorrer los diversos campos de una linea
 
   //Agregamos Gráficas al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/GRAFICAS.csv", "r");
   if (archivo == NULL)
@@ -46,10 +47,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   } 
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
 
   //Agregamos Procesadores al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/PROCESADORES.csv", "r");
   if (archivo == NULL)
@@ -84,10 +83,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   }
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
 
   //Agregamos Tarjetas madres al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/TARJETAMADRE.csv", "r");
   if (archivo == NULL)
@@ -122,10 +119,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   }
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
 
   //Agregamos Memorias Ram al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/RAM.csv", "r");
   if (archivo == NULL)
@@ -158,10 +153,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   }
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
 
   //Agregamos Almacenamientos al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/ALMACENAMIENTO.csv", "r");
   if (archivo == NULL)
@@ -195,10 +188,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   }
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
 
   //Agregamos Fuentes De Poder al mapa de componentes
-  //------------------------------------------------------------------------------
   //------------------------------------------------------------------------------
   archivo = fopen("data/FUENTEPODER.csv", "r");
   if (archivo == NULL)
@@ -230,9 +221,8 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   }
   fclose(archivo);
   //------------------------------------------------------------------------------
-  //------------------------------------------------------------------------------
   
-  //Inserciones para el carrito de compras y que este inicie en NULL
+  //Inserciones para que el carrito del usuario inicie en NULL
   map_insert(carritoCompras, "Gráfica", NULL);
   map_insert(carritoCompras, "Procesador", NULL);
   map_insert(carritoCompras, "RAM", NULL);
@@ -240,6 +230,7 @@ void cargarComponentes(Map *componentes, Map *carritoCompras)
   map_insert(carritoCompras, "Tarjeta Madre", NULL);
   map_insert(carritoCompras, "Fuente de Poder", NULL);
 }
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 void mostrarGraf(List *lista)
 {
@@ -264,6 +255,7 @@ void mostrarGraf(List *lista)
   printf("--------------------------------------------\n\n");
 }
 //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void mostrarProce(List *lista)
 {
   Procesador *procesador = (Procesador *)list_first(lista);
@@ -275,7 +267,7 @@ void mostrarProce(List *lista)
   {
     printf("%i.-\n", contador);
     printf("Modelo: %s\n", procesador->modelo);
-    printf("Marca: %s GB\n", procesador->marca);
+    printf("Marca: %s\n", procesador->marca);
     printf("Núcleos: GDDR%d\n", procesador->nucleos);
     printf("Hilos: %dW\n", procesador->hilos);
     printf("Frecuencia Mínima: %d\n", procesador->frecuenciaMin);
@@ -287,6 +279,7 @@ void mostrarProce(List *lista)
   printf("%i.- Cancelar Operación\n", contador);
   printf("--------------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 void mostrarTarjetaMadre(List *lista)
 {
@@ -311,6 +304,7 @@ void mostrarTarjetaMadre(List *lista)
   printf("--------------------------------------------\n\n");
 }
 //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void mostrarRam(List *lista)
 {
   MemoriaRAM *memoriaRam = (MemoriaRAM *)list_first(lista);
@@ -332,6 +326,7 @@ void mostrarRam(List *lista)
   printf("%i.- Cancelar Operación\n", contador);
   printf("--------------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 void mostrarAlmacenamiento(List *lista)
 {
@@ -356,6 +351,7 @@ void mostrarAlmacenamiento(List *lista)
   printf("--------------------------------------------\n\n");
 }
 //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void mostrarFuentePoder(List *lista)
 {
   FuentePoder *fuentePoder = (FuentePoder *)list_first(lista);
@@ -376,4 +372,25 @@ void mostrarFuentePoder(List *lista)
   printf("%i.- Cancelar Operación\n", contador);
   printf("--------------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+bool carritoVacio(Map *carritoCompras)
+{
+  MapPair *pair;
+  pair = map_search(carritoCompras, "Gráfica");
+  if (pair->value != NULL) return false;
+  pair = map_search(carritoCompras, "Procesador");
+  if (pair->value != NULL) return false;
+  pair = map_search(carritoCompras, "RAM");
+  if (pair->value != NULL) return false;
+  pair = map_search(carritoCompras, "Almacenamiento");
+  if (pair->value != NULL) return false;
+  pair = map_search(carritoCompras, "Tarjeta Madre");
+  if (pair->value != NULL) return false;
+  pair = map_search(carritoCompras, "Fuente de Poder");
+  if (pair->value != NULL) return false;
+  
+  return true; //El carrito está completamente vacío
+}
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

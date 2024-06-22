@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "list.h"
 #include "map.h"
 
@@ -50,16 +51,6 @@ typedef struct {
   char calidad[50]; //80 PLUS
 } FuentePoder;
 
-typedef struct{
-  int contGraf;
-  int contProce;
-  int contTarj;
-  int contRAM;
-  int contAlmacenamiento;
-  int contFuente;
-  int contadorTotal;
-}ContadoresComp;
-
 void cargarComponentes(Map *componentes, Map *carritoCompras);
 
 void mostrarGraf(List *lista);
@@ -73,3 +64,5 @@ void mostrarRam(List *lista);
 void mostrarAlmacenamiento(List *lista);
 
 void mostrarFuentePoder(List *lista);
+
+bool carritoVacio(Map *carritoCompras);

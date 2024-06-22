@@ -1,5 +1,5 @@
 Modelo,Lectura(MB/S),Escritura(MB/S),Espacio(GB),Tipo(Sata/Nvme)
-Samsung 970 EVO Plus,3500,3300,1000,Nvme
-WD Blue 3D NAND,560,530,500,Sata
-Crucial P1,2000,1750,1000,Nvme
-Seagate Barracuda,210,210,2000,Sata
+Samsung 970 EVO Plus,3500,3300,1000,NVMe
+WD Blue 3D NAND,560,530,500,SATA
+Crucial P1,2000,1750,1000,NVMe
+Seagate Barracuda,210,210,2000,SATA
