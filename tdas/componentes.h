@@ -50,6 +50,16 @@ typedef struct {
   char calidad[50]; //80 PLUS
 } FuentePoder;
 
+typedef struct{
+  int contGraf;
+  int contProce;
+  int contTarj;
+  int contRAM;
+  int contAlmacenamiento;
+  int contFuente;
+  int contadorTotal;
+}ContadoresComp;
+
 void cargarComponentes(Map *componentes, Map *carritoCompras);
 
 void mostrarGraf(List *lista);
