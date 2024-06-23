@@ -1,6 +1,6 @@
-#include "tdas/extra.h"
-#include "tdas/list.h"
-#include "tdas/map.h"
+#include "tdas/extra.h" //Agregamos la carpeta de tdas extras
+#include "tdas/list.h" //Agregamos la carpeta de tdas list
+#include "tdas/map.h" //Agregamos la carpeta de tdas map
 #include "tdas/componentes.h" //Carpeta con estructuras y funciones para mostrar componentes
 #include <ctype.h>
 #include <stdbool.h>
@@ -10,6 +10,7 @@
 
 //---------------- Función para el menú principal -----------------------
 //-----------------------------------------------------------------------
+/*Esta función es la del menú principal. El usuario tendrá la opción de elegir la operación que desee.*/
 void mostrarMenuPrincipal()
 {
   puts("----------------------------------------------");
@@ -24,18 +25,20 @@ void mostrarMenuPrincipal()
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*La función isEqualStr sirve para determinar si los carácteres son iguales.*/
 int isEqualStr(void *clave1, void *clave2) {
   return strcmp((char *)clave1, (char *)clave2) == 0;
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*La Función elegir gráfica se encarga en buscar en el mapa el valor "Gráfica". En caso que no hayan, printeará el mensaje correspondiente. En caso contrario, le dará la opción al usuario de escoger la gráfica que desea.*/
 void elegirGrafica(Map *componentes, Map *carritoCompras)
 {
   //Comprobamos que no haya una tarjeta en el carrito
   MapPair *pairCar = map_search(carritoCompras, "Gráfica");
-  if (pairCar->value != NULL)
+  if (pairCar->value != NULL) //Si ya hay una gráfica en el carrito:
   {
-    puts("\nYa tienes una Tarjeta Gráfica en tu carrito!\n");
+    puts("\nYa tienes una Tarjeta Gráfica en tu carrito!\n"); //Printea el mensaje.
     puts("Volviendo al Menú Principal.");
     return;
   }
@@ -43,14 +46,14 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
   limpiarPantalla();
   //Busca la lista de gráficas disponibles en 'componentes'
   int opcionGraf;
-  MapPair *pairGraf = map_search(componentes, "Gráfica");
-  if (pairGraf == NULL || pairGraf->value == NULL) {
-    puts("No hay Tarjetas Gráficas disponibles");
+  MapPair *pairGraf = map_search(componentes, "Gráfica"); //Se hace la búsqueda del valor "Gráfica" en el mapa 'componentes'.
+  if (pairGraf == NULL || pairGraf->value == NULL) { //En caso que no hayan gráficas disponibles:
+    puts("No hay Tarjetas Gráficas disponibles"); //Printea este mensaje.
     return;
   }
 
-  List *listaGraficas = (List *)pairGraf->value;
-  mostrarGraf(listaGraficas);
+  List *listaGraficas = (List *)pairGraf->value; //Se guarda la lista de gráficas en 'listaGraficas'.
+  mostrarGraf(listaGraficas); //Se muestra la listas con las gráficas disponibles.
   printf("Escoge una Tarjeta Gráfica: ");
   scanf("%i", &opcionGraf);
 
@@ -75,9 +78,10 @@ void elegirGrafica(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Se hace el mismo proceso que las gráficas, pero en este caso con los procesadores.*/
 void elegirProce(Map *componentes, Map *carritoCompras)
 {
-  //Comprobamos que no haya una tarjeta en el carrito
+  //Comprobamos que no haya una tarjeta en el carrito.
   MapPair *pairCar = map_search(carritoCompras, "Procesador");
   if (pairCar->value != NULL)
   {
@@ -87,7 +91,7 @@ void elegirProce(Map *componentes, Map *carritoCompras)
   }
 
   limpiarPantalla();
-  //Busca la lista de procesadores disponibles en 'componentes'
+  //Busca la lista de procesadores disponibles en 'componentes'.
   int opcionProce;
   MapPair *pairProce = map_search(componentes, "Procesador");
   if (pairProce == NULL || pairProce->value == NULL) {
@@ -105,7 +109,7 @@ void elegirProce(Map *componentes, Map *carritoCompras)
     return;
   }
 
-  //Busca la gráfica elegida por el usuario y la agrega a su carrito
+  //Busca la gráfica elegida por el usuario y la agrega a su carrito.
   Procesador *procesador = (Procesador *)list_first(listaProcesadores);
   for (int i = 1; i < opcionProce; i++)
   {
@@ -121,6 +125,7 @@ void elegirProce(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Se repite el proceso pero con la tarjeta madre.*/
 void elegirTarjetaMadre(Map *componentes, Map *carritoCompras)
 {
   //Comprobamos que no haya una tarjeta en el carrito
@@ -134,7 +139,7 @@ void elegirTarjetaMadre(Map *componentes, Map *carritoCompras)
   }
   
   limpiarPantalla();
-  
+  //Busca la lista de tarjetas madres disponibles en 'componentes'.
   int opcionTarjetaMadre;
   MapPair *pairTarjetaMadre = map_search(componentes, "Tarjeta Madre");
   if (pairTarjetaMadre == NULL || pairTarjetaMadre->value == NULL) {
@@ -152,7 +157,7 @@ void elegirTarjetaMadre(Map *componentes, Map *carritoCompras)
     return;
   }
   
-  //Busca la gráfica elegida por el usuario y la agrega a su carrito
+  //Busca la gráfica elegida por el usuario y la agrega a su carrito.
   TarjetaMadre *tarjetaMadre = (TarjetaMadre *)list_first(listaTarjetasMadre);
   for (int i = 1; i < opcionTarjetaMadre; i++)
   {
@@ -168,6 +173,7 @@ void elegirTarjetaMadre(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Mismo proceso pero con las memoria RAM.*/
 void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
 {
   //Comprobamos que no haya una memoria Ram en el carrito
@@ -181,7 +187,7 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
   }
 
   limpiarPantalla();
-
+  //Busca la lista de memoria RAM disponibles en 'componentes'.
   int opcionRam;
   MapPair *pairRam = map_search(componentes, "RAM");
   if (pairRam == NULL || pairRam->value == NULL) {
@@ -199,7 +205,7 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
     return;
   }
 
-  //Busca la memoria Ram elegida por el usuario y la agrega a su carrito
+  //Busca la memoria Ram elegida por el usuario y la agrega a su carrito.
   MemoriaRAM *memoriaRam = (MemoriaRAM  *)list_first(listaMemoriasRam);
   for (int i = 1; i < opcionRam; i++)
   {
@@ -215,9 +221,10 @@ void elegirMemoriaRAM(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Mismo proceso pero con el almacenamiento.*/
 void elegirAlmacenamiento(Map *componentes, Map *carritoCompras)
 {
-  //Comprobamos que no haya una unidad de almacenamiento en el carrito
+  //Comprobamos que no haya una unidad de almacenamiento en el carrito.
 
   MapPair *pairCar = map_search(carritoCompras, "Almacenamiento");
   if (pairCar->value != NULL)
@@ -228,7 +235,7 @@ void elegirAlmacenamiento(Map *componentes, Map *carritoCompras)
   }
 
   limpiarPantalla();
-
+  //Busca la lista de unidades de almacenamiento disponibles en 'componentes'.
   int opcionAlmacenamiento;
   MapPair *pairAlmacenamiento = map_search(componentes, "Almacenamiento");
   if (pairAlmacenamiento == NULL || pairAlmacenamiento->value == NULL) {
@@ -246,7 +253,7 @@ void elegirAlmacenamiento(Map *componentes, Map *carritoCompras)
     return;
   }
 
-  //Busca la unidad de almacenamiento elegida por el usuario y la agrega a su carrito
+  //Busca la unidad de almacenamiento elegida por el usuario y la agrega a su carrito.
   Almacenamiento *unidadAlmacenamiento = (Almacenamiento  *)list_first(listaUnidadesAlmacenamiento);
   for (int i = 1; i < opcionAlmacenamiento; i++)
   {
@@ -262,10 +269,10 @@ void elegirAlmacenamiento(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Mismo proceso pero con la fuente de poder.*/
 void elegirFuentePoder(Map *componentes, Map *carritoCompras)
 {
-  //Comprobamos que no haya una fuente de poder en el carrito
-
+  //Comprobamos que no haya una fuente de poder en el carrito.
   MapPair *pairCar = map_search(carritoCompras, "Fuente de Poder");
   if (pairCar->value != NULL)
   {
@@ -275,7 +282,7 @@ void elegirFuentePoder(Map *componentes, Map *carritoCompras)
   }
 
   limpiarPantalla();
-
+  //Busca la lista de fuentes de poder disponibles en 'componentes'.
   int opcionFuentePoder;
   MapPair *pairFuentePoder = map_search(componentes, "Fuente de Poder");
   if (pairFuentePoder == NULL || pairFuentePoder->value == NULL) {
@@ -293,7 +300,7 @@ void elegirFuentePoder(Map *componentes, Map *carritoCompras)
     return;
   }
 
-  //Busca la fuente de poder elegida por el usuario y la agrega a su carrito
+  //Busca la fuente de poder elegida por el usuario y la agrega a su carrito.
   FuentePoder *fuentePoder = (FuentePoder  *)list_first(listaFuentesPoder);
   for (int i = 1; i < opcionFuentePoder; i++)
   {
@@ -309,6 +316,7 @@ void elegirFuentePoder(Map *componentes, Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Esta función se encarga en escoger el componente que desee el usuario. Dependiendo del producto que escogió, se llama la función de elegir (producto seleccionado).*/
 void escogerComponente(Map *componentes, Map *carrito)
 {
   char opcionComponente;
@@ -354,14 +362,16 @@ void escogerComponente(Map *componentes, Map *carrito)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Esta función muestra los productos que escogió el usuario, con sus respectivas especificaciones.*/
 void mostrarCarro(Map *carritoCompras)
 {
   puts("Tu carrito de compras:");
   puts("--------------------------------------------");
   
-  MapPair *pairCar = map_search(carritoCompras, "Gráfica");
-  if (pairCar->value != NULL)
+  MapPair *pairCar = map_search(carritoCompras, "Gráfica"); //Busca gráfica en el mapa.
+  if (pairCar->value != NULL) //Si existe:
   {
+    /*Muestra los datos y especificaciones de gráfica.*/
     Grafica *grafica = (Grafica *)pairCar->value;
     puts("Tarjeta Gráfica:\n");
     printf("Modelo: %s\n", grafica->modelo);
@@ -371,7 +381,8 @@ void mostrarCarro(Map *carritoCompras)
     printf("Gama: %s\n", grafica->gama);
     puts("--------------------------------------------");
   }
-  
+
+  /*Se repite el proceso con 'procesador'.*/
   pairCar = map_search(carritoCompras, "Procesador");
   if (pairCar->value != NULL)
   {
@@ -386,6 +397,7 @@ void mostrarCarro(Map *carritoCompras)
     puts("--------------------------------------------");
   }
 
+  /*Lo mismo con 'tarjeta madre'.*/
   pairCar = map_search(carritoCompras, "Tarjeta Madre");
   if (pairCar->value != NULL)
   {
@@ -399,6 +411,7 @@ void mostrarCarro(Map *carritoCompras)
     puts("--------------------------------------------");
   }
 
+  /*Lo mismo con 'ram'.*/
   pairCar = map_search(carritoCompras, "RAM");
   if (pairCar->value != NULL)
   {
@@ -411,6 +424,7 @@ void mostrarCarro(Map *carritoCompras)
     puts("--------------------------------------------");
   }
 
+  /*Mismo proceso con 'almacenamiento'.*/
   pairCar = map_search(carritoCompras, "Almacenamiento");
   if (pairCar->value != NULL)
   {
@@ -424,6 +438,7 @@ void mostrarCarro(Map *carritoCompras)
     puts("--------------------------------------------");
   }
 
+  /*Por último la 'fuente de poder'.*/
   pairCar = map_search(carritoCompras, "Fuente de Poder");
   if (pairCar->value != NULL)
   {
@@ -435,6 +450,7 @@ void mostrarCarro(Map *carritoCompras)
     puts("--------------------------------------------");
   }
 
+  //En caso de que el carrito de compras esté vacio, se printeará ese mensaje.
   if (carritoVacio(carritoCompras))
   {
     puts("No hay nada en tu carrito!");
@@ -444,11 +460,12 @@ void mostrarCarro(Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Esta función se encarga en eliminar los productos que el usuario escogió.*/
 void eliminarProducto(Map *carritoCompras)
 {
   int opcionBorrar;
 
-  if(carritoVacio(carritoCompras))
+  if(carritoVacio(carritoCompras)) //En caso de que esté vacio el carrito de compras, printeará que no hay nada.
   {
     puts("--------------------------------");
     puts("No hay nada en tu carrito!");
@@ -458,6 +475,7 @@ void eliminarProducto(Map *carritoCompras)
   
   do
   {
+    /*El usuario debe escoger el componente que quiera eliminar de su carrito.*/
     puts("Escoge el componente que deseas eliminar del carrito:\n");
     puts("1. Gráfica");
     puts("2. Procesador");
@@ -473,6 +491,7 @@ void eliminarProducto(Map *carritoCompras)
     switch(opcionBorrar)
     {
       case 1:
+        //Para borrar la gráfica.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "Gráfica");
         if (pairCar->value == NULL)
@@ -488,6 +507,7 @@ void eliminarProducto(Map *carritoCompras)
         break;
       
       case 2:
+        //Para borrar el procesador.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "Procesador");
         if (pairCar == NULL || pairCar->value == NULL)
@@ -503,6 +523,7 @@ void eliminarProducto(Map *carritoCompras)
         break;
       
       case 3:
+        //Para borrar la tarjeta madre.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "Tarjeta Madre");
         if (pairCar == NULL || pairCar->value == NULL)
@@ -518,6 +539,7 @@ void eliminarProducto(Map *carritoCompras)
         break;
       
       case 4:
+        //Para borrar la ram.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "RAM");
         if (pairCar == NULL || pairCar->value == NULL)
@@ -533,6 +555,7 @@ void eliminarProducto(Map *carritoCompras)
         break;
       
       case 5:
+        //Para borrar el almacenamiento.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "Almacenamiento");
         if (pairCar == NULL || pairCar->value == NULL)
@@ -548,6 +571,7 @@ void eliminarProducto(Map *carritoCompras)
         break;
       
       case 6:
+        //Para borrar la fuente de poder.
         limpiarPantalla();
         pairCar = map_search(carritoCompras, "Fuente de Poder");
         if (pairCar == NULL || pairCar->value == NULL)
@@ -578,6 +602,8 @@ void eliminarProducto(Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*Se encargará de comprobar la compatibilidad de los productos seleccionados por el usuario, esto mediante una comparación de las especificaciones de los productos escogidos.
+El proceso será el mismo para cada comparación de compatibilidad entre los productos.*/
 void comprobarCompatibilidad(Map *carritoCompras)
 {
   limpiarPantalla();
@@ -604,19 +630,19 @@ void comprobarCompatibilidad(Map *carritoCompras)
       Grafica *grafica = (Grafica *)pairCar->value; //Asignamos variable para comparación
 
       pairAux = map_search(carritoCompras, "Procesador");
-      if (pairAux->value != NULL)
+      if (pairAux->value != NULL) //Si hay un procesador...
       {
         Procesador *procesador = (Procesador *)pairAux->value;
-        if (strcmp(grafica->gama, procesador->gama) != 0)
+        if (strcmp(grafica->gama, procesador->gama) != 0) //Comparamos la gama entre gráfica y procesador.
         {
         puts("La gráfica y el procesador provocarán cuello de botella.");
         puts("No recomendamos esta combinación debido a que puede afectar el rendimiento.");
-        contadorError++;
+        contadorError++; //Sumamos uno al contador de errores.
         }
       }
 
       pairAux = map_search(carritoCompras, "Fuente de Poder");
-      if (pairAux->value != NULL)
+      if (pairAux->value != NULL) //Si hay una fuente de poder...
       {
         FuentePoder *fuentePoder = (FuentePoder *)pairAux->value;
         if (grafica->consumo > fuentePoder->energia)
@@ -717,6 +743,7 @@ void comprobarCompatibilidad(Map *carritoCompras)
 }
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
+/*La función main es para crear los mapas que usamos, y que el usuario use la opción que quiera.*/
 int main(void)
 {
   Map *componentes = map_create(isEqualStr); //Contiene todos los productos
