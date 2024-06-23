@@ -339,9 +339,9 @@ void mostrarAlmacenamiento(List *lista)
   {
     printf("%i.-\n", contador);
     printf("Modelo: %s\n", unidadAlmacenamiento->modelo);
-    printf("Velocidad de lectura: %i mb/s\n", unidadAlmacenamiento->lectura);
-    printf("Velocidad de escritura: %i mb/s\n", unidadAlmacenamiento->escritura);
-    printf("Espacio de almacenamiento: %i gb\n", unidadAlmacenamiento->espacio);  
+    printf("Velocidad de lectura: %i MBh/s\n", unidadAlmacenamiento->lectura);
+    printf("Velocidad de escritura: %i MB/s\n", unidadAlmacenamiento->escritura);
+    printf("Espacio de almacenamiento: %i GB\n", unidadAlmacenamiento->espacio);  
     printf("Tipo de SSD M2: %s\n", unidadAlmacenamiento->tipo);
     printf("--------------------------------------------\n");
     unidadAlmacenamiento = (Almacenamiento *)list_next(lista);
@@ -363,7 +363,7 @@ void mostrarFuentePoder(List *lista)
   {
     printf("%i.-\n", contador);
     printf("Modelo: %s\n", fuentePoder->modelo);
-    printf("Consumo de energía: %i watts\n", fuentePoder->energia);
+    printf("Capacidad de energía: %i W\n", fuentePoder->energia);
     printf("Certificación: %s\n", fuentePoder->calidad);
     printf("--------------------------------------------\n");
     fuentePoder = (FuentePoder *)list_next(lista);

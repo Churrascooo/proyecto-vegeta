@@ -620,12 +620,13 @@ void comprobarCompatibilidad(Map *carritoCompras)
   { //Si hay algún elemento en el carrito
     MapPair *pairCar; //Componente principal que se va a comprobar
     MapPair *pairAux; //Auxiliar para comparar
+    int contadorInco = 0; //Cuenta las incompatibilidades por componente
     
     //Comparación Tarjeta Gráfica
     pairCar = map_search(carritoCompras, "Gráfica");
     if (pairCar->value != NULL) //Se comprueba que haya gráfica
     {
-      int contadorError = 0; //Contador de incompatibilidades
+      int contadorError = 0; //Contador de errores local
       puts("Tarjeta Gráfica:");
       Grafica *grafica = (Grafica *)pairCar->value; //Asignamos variable para comparación
 
@@ -641,17 +642,42 @@ void comprobarCompatibilidad(Map *carritoCompras)
         }
       }
 
-      pairAux = map_search(carritoCompras, "Fuente de Poder");
-      if (pairAux->value != NULL) //Si hay una fuente de poder...
-      {
-        FuentePoder *fuentePoder = (FuentePoder *)pairAux->value;
-        if (grafica->consumo > fuentePoder->energia)
-        puts("El *CONSUMO* de la Fuente de Poder y la Gráfica no son compatibles.");
-        contadorError++;
-      }
-      if (contadorError == 0){
+      //Verificación de incompatibilidades
+      if (contadorError == 0)
         puts("La Tarjeta Gráfica no tiene incompatibilidades.");
+      else  
+        contadorInco++;
+      
+      puts("--------------------------------------------");
+    }
+
+    //Comparación Procesador
+    pairCar = map_search(carritoCompras, "Procesador");
+    if (pairCar->value != NULL) //Se comprueba que haya procesador
+    {
+      int contadorError = 0; //Contador de errores local
+      puts("Procesador:");
+      Procesador *procesador = (Procesador *)pairCar->value;
+
+      pairAux = map_search(carritoCompras, "Tarjeta Madre");
+      if (pairAux->value != NULL) //Si hay una tarjeta madre...
+      {
+        //Haremos las comparaciones necesarias con la tarjeta Madre.
+        TarjetaMadre *tarjetaMadre = (TarjetaMadre *)pairAux->value;
+        if (strcmp(procesador->marca, tarjetaMadre->marcaProce) != 0)
+        {
+          printf("La Tarjeta Madre no es compatible con el Procesador de marca %s.\n", procesador->marca);
+          contadorError++;
+        }
+        
       }
+
+      //Verificación de incompatibilidades
+      if (contadorError == 0)
+        puts("El Procesador no tiene incompatibilidades.");
+      else
+        contadorInco++;
+      
       puts("--------------------------------------------");
     }
     
@@ -659,22 +685,10 @@ void comprobarCompatibilidad(Map *carritoCompras)
     pairCar = map_search(carritoCompras, "Tarjeta Madre");
     if(pairCar->value != NULL) 
     { 
-      int contadorError = 0; //Contador de incompatibilidades
+      int contadorError = 0; //Contador de errores local
       puts("Tarjeta Madre:");
       TarjetaMadre *tarjetaMadre = (TarjetaMadre *)pairCar->value; //Asignamos variable para comparación
-
-      pairAux = map_search(carritoCompras, "Procesador");
-      if(pairAux->value != NULL) //Si hay un procesador...
-      { 
-        //Haremos las comparaciones necesarias con el procesador
-        Procesador *procesador = (Procesador *)pairAux->value;
-        if(strcmp(procesador->marca, tarjetaMadre->marcaProce) != 0)
-        {
-          printf("La Tarjeta Madre no es compatible con el Procesador de marca %s.\n", procesador->marca);
-          contadorError++;
-        }    
-      }
-
+      
       pairAux = map_search(carritoCompras, "RAM");
       if(pairAux->value != NULL) //Si hay una RAM...
       {
@@ -687,56 +701,136 @@ void comprobarCompatibilidad(Map *carritoCompras)
         }
       }
 
-      if (contadorError == 0){
+      //Verificación de incompatibilidades
+      if (contadorError == 0)
         puts("La Tarjeta Madre no tiene incompatibilidades.");
-      }
+      else
+        contadorInco++;
+      
       puts("--------------------------------------------");
     }
 
     //Comparación Almacenamiento
     pairCar = map_search(carritoCompras, "Almacenamiento");
-    if(pairCar->value != NULL){
-      int contadorError = 0; //Contador de incompatibilidades
+    if(pairCar->value != NULL)
+    {
+      int contadorError = 0; //Contador de errores local
       puts("Almacenamiento:");
       Almacenamiento *almacenamiento = (Almacenamiento *)pairCar->value;
+      
       //Haremos las comparaciones necesarias con el almacenamiento
       pairAux = map_search(carritoCompras, "Tarjeta Madre");
-      TarjetaMadre *tarjetaMadre = (TarjetaMadre *)pairAux->value;
-      if(strcmp(almacenamiento->tipo, "NVMe") == 0 &&  tarjetaMadre->nvme == 0)
+      if (pairAux->value != NULL) //Si hay Tarjeta Madre...
       {
-        puts("La Tarjeta Madre no tiene puertos NVMe para la unidad de almacenamiento.");
-        puts("Recomendamos usar un almacenamiento de tipo SATA");
-        contadorError++;
+        TarjetaMadre *tarjetaMadre = (TarjetaMadre *)pairAux->value;
+        if(strcmp(almacenamiento->tipo, "NVMe") == 0 &&  tarjetaMadre->nvme == 0)
+        {
+          puts("La Tarjeta Madre no tiene puertos NVMe para la unidad de almacenamiento.");
+          puts("Recomendamos usar un almacenamiento de tipo SATA");
+          contadorError++;
+        }
       }
-      if(contadorError==0){
+
+      //Verificación de incompatibilidades
+      if(contadorError == 0)
         puts("La unidad de Almacenamiento no tiene incompatibilidades.");
-      }
+      else  
+        contadorInco++;
+
       puts("--------------------------------------------");
     }
 
     //comparacion RAM
     pairCar = map_search(carritoCompras, "RAM");
-    if(pairCar->value != NULL){
-      int contadorError = 0; //Contador de incompatibilidades
+    if(pairCar->value != NULL)
+    {
+      int contadorError = 0; //Contador de errores local
       puts("Memoria RAM:");
       MemoriaRAM *memoriaRam = (MemoriaRAM *)pairCar->value;
+      
       //Haremos las comparaciones necesarias con el procesador
       pairAux = map_search(carritoCompras, "Procesador");
-      Procesador *procesador = (Procesador *)pairAux->value;
-      if(memoriaRam->frecuencia < procesador->frecuenciaMin){
-        puts("La frecuencia de la RAM no es compatible con la del Procesador.");
-        puts("Busca una RAM con mayor frecuencia.");
-        contadorError++;
+      if (pairAux->value != NULL) //Si hay un procesador...
+      {
+        Procesador *procesador = (Procesador *)pairAux->value;
+        if(memoriaRam->frecuencia < procesador->frecuenciaMin)
+        {
+          puts("La frecuencia de la RAM no es compatible con la del Procesador.");
+          puts("Busca una RAM con mayor frecuencia.");
+          contadorError++;
+        }
       }
-      else if(memoriaRam->frecuencia > procesador->frecuenciaMin){
-        puts("La frecuencia de la RAM es mayor a la del Procesador.");
-        puts("La memoria RAM estará limitada");
-        contadorError++;
-      }
-      if (contadorError == 0){
+
+      //Verificación de incompatibilidades
+      if (contadorError == 0)
         puts("La Memoria RAM no tiene incompatibilidades.");
-      }
+      else
+        contadorInco++;
+      
       puts("--------------------------------------------");
+    }
+
+    //Comparación Fuente de Poder
+    pairCar = map_search(carritoCompras, "Fuente de Poder");
+    if (pairCar->value != NULL) 
+    {
+      int contadorError = 0;
+      puts("Fuente de Poder:");
+      FuentePoder *fuentePoder = (FuentePoder *)pairCar->value;
+      pairAux = map_search(carritoCompras, "Gráfica");
+      if (pairAux->value != NULL)
+      {
+        //Haremos las comparaciones necesarias con la gráfica
+        Grafica *grafica = (Grafica *)pairAux->value;
+        if(fuentePoder->energia < grafica->consumo)
+        {
+          puts("El *CONSUMO* de la Fuente de Poder y la Gráfica no son compatibles.");
+          contadorError++;
+        }      
+      }
+
+      //Verificación de incompatibilidades
+      if (contadorError == 0)
+        puts("La Fuente de Poder no tiene incompatibilidades.");
+      else
+        contadorInco++;
+
+      puts("--------------------------------------------");
+    }
+
+    if (contadorInco == 0)
+    {
+      
+      int opcion;
+      puts("\n¡Tu carrito está completo y compatible!\n");
+      puts("Deseas confirmar la compra?");
+      puts("1) Confirmar Compra.");
+      puts("2) Seguir Comprando...");
+      printf("Ingrese su opción: ");
+      scanf(" %d" , &opcion);
+
+      switch(opcion)
+      {
+        case 1:
+          limpiarPantalla();
+          puts("Compra confirmada.");
+          puts("El equipo de Vegeta Makes Everything está preparando tu pedido!");
+          puts("Gracias por comprar con nosotros <3");
+
+          puts("⢀⣀⡀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+          puts("⠀⢿⣷⠀⠀⢀⣿⠇⠀⠀⣀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⣀⠀⠀⠀⣶⡆⠀⠀⠀⣀⡀⠀⠀");
+          puts("⠀⠈⣿⡆⠀⣼⡟⠀⣾⡿⠛⢻⣦⠀⣾⠟⠛⢿⣿⠀⣾⡟⠛⢻⣆⠛⣿⡟⠃⠼⠿⠛⢻⣷⠀");
+          puts("⠀⠀⠘⣷⣸⣿⠃⠀⣿⡿⠿⠿⠿⠇⣿⠀⠀⢸⣿⠰⣿⠿⠿⠿⠿⠀⣿⡇⠀⣴⣾⠿⢻⣿⠀");
+          puts("⠀⠀⠀⢹⣿⠇⠀⠀⠻⣷⣤⣴⠷⠀⢿⣧⣤⣿⣿⠀⠻⣧⣤⣴⠶⠀⢿⣧⡄⢿⣷⣤⣾⣿");
+          puts("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣤⣤⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+          puts("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀");
+          break;
+        
+        case 2:
+          limpiarPantalla();
+          puts("Volviendo al menú principal.\n");
+          break;
+      }    
     }
   }
   return;
@@ -772,6 +866,7 @@ int main(void)
         eliminarProducto(carritoCompras);
         break;
       case '4':
+        limpiarPantalla();
         comprobarCompatibilidad(carritoCompras);
         break;
       case '5':
