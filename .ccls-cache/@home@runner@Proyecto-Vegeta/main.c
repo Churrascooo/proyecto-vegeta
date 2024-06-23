@@ -628,14 +628,6 @@ void comprobarCompatibilidad(Map *carritoCompras)
       }
       puts("--------------------------------------------");
     }
-
-    //Comparación Procesador
-    //Comparación Procesador
-    //Comparación Procesador
-    //Comparación Procesador
-    //Comparación Procesador
-
-    
     
     //Comparación Tarjeta Madre
     pairCar = map_search(carritoCompras, "Tarjeta Madre");
@@ -696,12 +688,33 @@ void comprobarCompatibilidad(Map *carritoCompras)
       puts("--------------------------------------------");
     }
 
-    //REPETIR FORMULA PARA EL RESTO DE COMPONENTES
-    
+    //comparacion RAM
+    pairCar = map_search(carritoCompras, "RAM");
+    if(pairCar->value != NULL){
+      int contadorError = 0; //Contador de incompatibilidades
+      puts("Memoria RAM:");
+      MemoriaRAM *memoriaRam = (MemoriaRAM *)pairCar->value;
+      //Haremos las comparaciones necesarias con el procesador
+      pairAux = map_search(carritoCompras, "Procesador");
+      Procesador *procesador = (Procesador *)pairAux->value;
+      if(memoriaRam->frecuencia < procesador->frecuenciaMin){
+        puts("La frecuencia de la RAM no es compatible con la del Procesador.");
+        puts("Busca una RAM con mayor frecuencia.");
+        contadorError++;
+      }
+      else if(memoriaRam->frecuencia > procesador->frecuenciaMin){
+        puts("La frecuencia de la RAM es mayor a la del Procesador.");
+        puts("La memoria RAM estará limitada");
+        contadorError++;
+      }
+      if (contadorError == 0){
+        puts("La Memoria RAM no tiene incompatibilidades.");
+      }
+      puts("--------------------------------------------");
+    }
   }
   return;
 }
-
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 int main(void)
