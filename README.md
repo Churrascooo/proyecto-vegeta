@@ -3,7 +3,7 @@
 Vegeta Makes Everything es una aplicación que se dedica a la venta de componentes de pc. Existe una variedad de 6 componentes, los cuáles son: Tarjeta gráfica, procesador, tarjeta madre, memoria ram, almacenamiento y fuente de poder.
 A continuación enseñaremos más a detalle sobre el programa.
 
-## Como compilar y ejecutar el programa
+## Cómo compilar y ejecutar el programa
 Para ejecutar el programa lo que deberá hacer es lo siguiente:
 
 - Primero, visite Repl.it
@@ -15,17 +15,23 @@ Para ejecutar el programa lo que deberá hacer es lo siguiente:
   
 ## Funcionalidades
 ### Funcionando correctamente:
-- La función **Búsqueda de productos**. Se encarga a la búsqueda entre los 6 productos que dispone la aplicación. El usuario se encargará en elegir el producto que desee, para así agregarlo a su carrito.
+- La función **Búsqueda de productos**. Se encarga a la búsqueda entre los 6 tipos de componentes de los cuales dispone la aplicación. El usuario se encargará de elegir el producto que desee, para así agregarlo a su carrito.
 - La función **Carrito de compras**. Se dedica a mostrar los productos que el usuario ha agregado a su carrito de compras. Este mostrará el producto con sus respectivos datos.
-- La función **Eliminar del carrito de compras**. Como dice su nombre, sirve para eliminar el producto que desee el usuario de su carrito de compras. Al seleccionar esta opción, el usuario deberá elegir un tipo de producto; en caso que tenga, se borarrá. En caso contrario, la aplicación le dirá que no ha agregado ningún producto al carrito.
-- La función **Comprobar compatibilidad**. Lo que hace esta función es comprobar si existen compatibilidades entre los productos que ha seleccionado el usuario. Esto abrirá dos opciones: en caso que tenga compatibilidad, podrá confirmar la compra. En caso opuesto, el programa le dirá que no son compatibles, por lo que el usuario tendrá que seleccionar otro producto.
+- La función **Eliminar del carrito de compras**. Como dice su nombre, sirve para eliminar un producto del carrito que el usuario desee. Al seleccionar esta opción, el usuario deberá elegir un tipo de producto. Esto abrirá dos opciones: en caso de ya poseer el producto, se borrará. En caso contrario, la aplicación le dirá que dicho objeto no existe en el carrito.
+- La función **Comprobar compatibilidad**. Lo que hace esta función es comprobar si existen compatibilidades entre los productos que ha seleccionado el usuario. Esto abrirá dos opciones: en caso que tenga compatibilidad, podrá confirmar la compra. En caso opuesto, el programa le dirá que no son compatibles, por lo que el usuario tendrá que cambiar algún producto hasta que estos sean compatibles.
 
 ### Errores comúnes
-- HAY QUE BUSCAR
-- No es un error como tal, pero en "escoger un componente", poner un carácter (letra, etc) no hace nada.
+- Al momento de agregar más de 4 componentes del mismo tipo, el programa experimenta errores visuales.
+- No es un error como tal, pero al usar caracteres en la función de busqueda, esta no hace nada.
+- Spamear caracteres pueden generar errores visuales.
 
 ### Cosas a mejorar:
 - Mejorar la interfaz para que sea más agradable a la vista del usuario.
+- Mejorar el catalogo de componentes para tener mayor variedad.
+- Agregar una guía personalizada en base a los gustos del usuario.
+- Permitir al usuario comprar el mismo tipo de componente más de una vez.
+- Agregar precios a los productos.
+
 
 ### Ejemplo de uso
 
@@ -236,6 +242,6 @@ Gracias por comprar con nosotros <3
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀
 Presione una tecla para continuar...
 ````
-En caso de seleccionar la opción 2 (seguir comprando) el programa te devolverá principal para que sigas usándolo.
+En caso de seleccionar la opción 2 (seguir comprando) el programa te devolverá al menú principal para que sigas usándolo.
 
-Eso es todo, esperando que se haya entendido, te deseo mucha suerte utilizando el programa! :]
+Eso es todo, esperando que se haya entendido, disfrute utilizando el programa! :]

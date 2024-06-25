@@ -320,16 +320,16 @@ void elegirFuentePoder(Map *componentes, Map *carritoCompras)
 void escogerComponente(Map *componentes, Map *carrito)
 {
   char opcionComponente;
-  puts("Escoge el componente que deseas agregar al carrito:\n");
-  puts("1. Gráfica");
-  puts("2. Procesador");
-  puts("3. Tarjeta Madre");
-  puts("4. Memoria RAM");
-  puts("5. Almacenamiento");
-  puts("6. Fuente de Poder");
-  puts("7. Cancelar Operación\n");
   do
   {
+    puts("Escoge el componente que deseas agregar al carrito:\n");
+    puts("1. Gráfica");
+    puts("2. Procesador");
+    puts("3. Tarjeta Madre");
+    puts("4. Memoria RAM");
+    puts("5. Almacenamiento");
+    puts("6. Fuente de Poder");
+    puts("7. Cancelar Operación\n");
     printf("Ingrese su opción: ");
     scanf(" %c", &opcionComponente);
 
