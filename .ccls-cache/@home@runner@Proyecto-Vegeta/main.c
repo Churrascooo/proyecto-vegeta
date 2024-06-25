@@ -669,7 +669,6 @@ void comprobarCompatibilidad(Map *carritoCompras)
           printf("La Tarjeta Madre no es compatible con el Procesador de marca %s.\n", procesador->marca);
           contadorError++;
         }
-        
       }
 
       //Verificación de incompatibilidades
